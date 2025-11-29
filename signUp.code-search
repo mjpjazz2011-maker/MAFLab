@@ -1,0 +1,17 @@
+# Query: signUp
+# ContextLines: 1
+
+1 result - 1 file
+
+src/lib/auth.ts:
+  48  
+  49:   const { data, error } = await supabase.auth.signUp(
+  {
+    email,
+    password,
+  },
+  {
+    emailRedirectTo: "https://maf-b6fxhb1ea-marie-jos-projects.vercel.app/",
+  }
+);
+
