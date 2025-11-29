@@ -13,15 +13,16 @@ export interface User {
 
 export async function getCurrentUser(): Promise<User | null> {
   if (!isSupabaseConfigured) return null;
-  
-  const { data, error } = await supabase.auth.getSession();
-  if (error || !data.session) return null;
 
-  const s = data.session.user;
+  // Obter o utilizador diretamente (mais fiável que getSession, especialmente no Safari)
+  const { data, error } = await supabase.auth.getUser();
+
+  if (error || !data?.user) return null;
+
   return {
-    id: s.id,
-    email: s.email ?? "",
-    user_metadata: s.user_metadata ?? {}
+    id: data.user.id,
+    email: data.user.email ?? "",
+    user_metadata: data.user.user_metadata ?? {}
   };
 }
 
